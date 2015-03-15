@@ -67,8 +67,8 @@ public class Interpolator {
 	public void nearestNeighbourSearch(ArrayList<Point> listPoints){
 		
 		int i,j;
-		int nBMax = 5;
-		double distanceMin = 160;
+		int nBMax = 50;
+		double distanceMin = 200;
 		Point B = new Point(15, 243, Color.red,13);
 		
 		initArrays(listPoints);
