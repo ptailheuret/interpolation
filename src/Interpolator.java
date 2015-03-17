@@ -4,11 +4,12 @@ import java.util.ArrayList;
 
 public class Interpolator {
 	
-	private int nrows = 500;
-	private int ncols = 500;
+	private int nrows;
+	private int ncols;
 	private int picsize = nrows*ncols;
 	private Point[] tabPoints = new Point[picsize];
 	private double[] tabTemp = new double[picsize];
+	private String name;
 	
 	public Interpolator(){
 	}
@@ -17,8 +18,16 @@ public class Interpolator {
 		return nrows;
 	}
 	
+	public void setNrows(int rows){
+		nrows=rows;
+	}
+	
 	public int getNcols(){
 		return ncols;
+	}
+	
+	public void setNcols(int cols){
+		ncols=cols;
 	}
 	
 	public Point[] getTable(){
@@ -29,6 +38,14 @@ public class Interpolator {
 		return tabTemp;
 	}
 	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public double carre(double x){
 		return x*x;
 	}

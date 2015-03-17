@@ -8,6 +8,7 @@ public class Point {
 	private int y;
 	private Color color;
 	private int temp;
+	private int altitude;
 	
 	private Point ClosestPoint = null;
 	private ArrayList<Point> listNearestPoints = new ArrayList<Point>();
@@ -17,6 +18,15 @@ public class Point {
 		this.y=y;
 		this.setColor(color);
 		this.temp=temp;
+	}
+	
+	
+	public Point(int x, int y, Color color, int temp, int altitude) {
+		this.x=x;
+		this.y=y;
+		this.setColor(color);
+		this.temp=temp;
+		this.altitude=altitude;
 	}
 
 	//Getters et Setters
@@ -48,6 +58,14 @@ public class Point {
 		this.temp = temp;
 	}
 	
+	public int getAltitude() {
+		return altitude;
+	}
+
+	public void setAltitude(int altitude) {
+		this.altitude = altitude;
+	}
+
 	public Point getClosestPoint(){
 		return ClosestPoint;
 	}
@@ -93,13 +111,6 @@ public class Point {
 					&& listNearestPoints.size()<nBMax)
 				listNearestPoints.add(listPoints.get(i));
 		}
-		
-		/*for(int i=0; i<listNearestPoints.size(); i++){
-			if(listNearestPoints.get(i).getTemp()==0){
-				System.out.println("problème au numéro i");
-				System.out.println(i);
-				}	
-		}*/
 				
 		return listNearestPoints;
 	}
