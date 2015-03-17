@@ -1,38 +1,8 @@
-/**
- * IsoCell.java
- *
- * Mike Markowski mike.ab3ap@gmail.com Apr 22, 2013
- *
- * v0.1 2013-04-22.  Initial release, Apr 22, 2013
- * v0.2 2013-11-12.  Bug fix.  Corrected start of subpath in firstSideCCW().
- *
- * Copyright 2013 Michael Markowski
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any later
- * version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- *
- * You should have received a copy of the GNU General Public License along with
- * this program. If not, see <http://www.gnu.org/licenses/>.
- */
-
 package map;
 
 import java.awt.geom.Point2D;
 
-/**
- * IsoCell is used to describe properties of data cells, in particular,
- * indicating whether neighbors are above or below a threshold value. Other
- * methods also help the caller follow isolines from cell to cell in a
- * counter-clockwise manner. That is useful when converting the isolines to
- * GeneralPaths.
- */
+
 public class IsoCell {
 
     public enum side {
@@ -40,7 +10,7 @@ public class IsoCell {
         LEFT, RIGHT, TOP, BOTTOM, NONE
     };
     boolean flipped;
-    int neighborInfo;
+    int neighbourInfo;
     double left, right, top, bottom;
 
     public IsoCell() {
@@ -55,27 +25,12 @@ public class IsoCell {
         this.flipped = flipped;
     }
 
-    /**
-     * Retrieve the neighbor info of this cell. Each of its neighbors is given a
-     * value of 1, 2, 4 or 8 depending on whether or not each is above or below
-     * a threshold. These values are the foundation of the Marching Squares
-     * algorithm.
-     *
-     * @return
-     */
-    public int getNeighborInfo() {
-        return neighborInfo;
+    public int getNeighbourInfo() {
+        return neighbourInfo;
     }
 
-    /**
-     * Save the status of this cell's 4 adjacent neighbors and whether or not
-     * ecah is above or below a threshold. It is a 4-bit integer ranging from 0
-     * through 15.
-     *
-     * @param neighborInfo
-     */
-    public void setNeighborInfo(int neighborInfo) {
-        this.neighborInfo = neighborInfo;
+    public void setNeighbourInfo(int neighbourInfo) {
+        this.neighbourInfo = neighbourInfo;
     }
 
     /**
@@ -113,7 +68,7 @@ public class IsoCell {
      */
     public side firstSideCCW(side prev) {
 
-        switch (neighborInfo) {
+        switch (neighbourInfo) {
             case 1:
             case 3:
             case 7:
@@ -169,7 +124,7 @@ public class IsoCell {
      */
     public side secondSideCCW(side prev) {
 
-        switch (neighborInfo) {
+        switch (neighbourInfo) {
             case 8:
             case 12:
             case 14:
@@ -211,7 +166,7 @@ public class IsoCell {
             default:
                 System.out.println(getClass()
                         + ".secondSideCCW: shouldn't be here!  Neighborinfo = "
-                        + neighborInfo);
+                        + neighbourInfo);
                 System.exit(1);
                 return side.NONE;
         }
@@ -238,14 +193,14 @@ public class IsoCell {
      * @param prev
      */
     public void clearIso(side prev) {
-        switch (neighborInfo) {
+        switch (neighbourInfo) {
             case 0:
             case 5:
             case 10:
             case 15:
                 break;
             default:
-                neighborInfo = 15;
+                neighbourInfo = 15;
         }
     }
 

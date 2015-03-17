@@ -83,23 +83,9 @@ import map.IsoCell.side;
  */
 public class MarchingSquares {
 
-    /**
-     * Coordinates within this distance of each other are considered identical.
-     * This affects whether new segments are or are not created in an iso
-     * shape GeneralPath, in particular whether or not to generate a call
-     * to lineTo().
-     */
     private final double epsilon = 1e-10;
 
     /**
-     * Typically, mkIsos() is the only method in this class that programs will
-     * call.  The caller supplies a 2d array of doubles representing some
-     * set of measured data.  Additionally, a 1d array of values is passed
-     * whose contents are thresholds corresponding to desired islines.
-     * The method returns a 1d array of GeneralPaths representing those
-     * isolines.  The GeneralPaths may contain disjoint polygons as well as
-     * holes.
-     *
      * <p>Sample call:
      * <pre>
      * MarchingSquares marchingSquares = new MarchingSquares();
@@ -112,6 +98,7 @@ public class MarchingSquares {
      * @return return an array of iso GeneralPaths. Each array element
      * corresponds to the same threshold in the 'levels' input array.
      */
+    
     public GeneralPath[] mkIsos(double[][] data, double[] levels) {
         // Pad data to guarantee iso GeneralPaths will be closed shapes.
         double dataP[][] = padData(data, levels);
@@ -166,7 +153,7 @@ public class MarchingSquares {
                 // Store neighbor info as one number.
                 contours[r][c] = new IsoCell();
                 contours[r][c].setFlipped(isFlipped);
-                contours[r][c].setNeighborInfo(nInfo);
+                contours[r][c].setNeighbourInfo(nInfo);
             }
         }
         return contours;
@@ -201,10 +188,10 @@ public class MarchingSquares {
         GeneralPath isoPath = new GeneralPath(GeneralPath.WIND_EVEN_ODD);
         for (r = 0; r < numRows; r++) {
             for (c = 0; c < numCols; c++) {
-                if (isoData[r][c].getNeighborInfo() != 0
-                        && isoData[r][c].getNeighborInfo() != 5
-                        && isoData[r][c].getNeighborInfo() != 10
-                        && isoData[r][c].getNeighborInfo() != 15) {
+                if (isoData[r][c].getNeighbourInfo() != 0
+                        && isoData[r][c].getNeighbourInfo() != 5
+                        && isoData[r][c].getNeighbourInfo() != 10
+                        && isoData[r][c].getNeighbourInfo() != 15) {
                     isoSubpath(isoData, r, c, isoPath);
                 }
             }
@@ -371,7 +358,7 @@ public class MarchingSquares {
         double ur = data[r + 1][c + 1];
 
         // Left side of iso cell.
-        switch (cell.getNeighborInfo()) {
+        switch (cell.getNeighbourInfo()) {
             case 1:
             case 3:
             case 5:
@@ -389,7 +376,7 @@ public class MarchingSquares {
         }
 
         // Bottom side of iso cell.
-        switch (cell.getNeighborInfo()) {
+        switch (cell.getNeighbourInfo()) {
             case 1:
             case 2:
             case 5:
@@ -407,7 +394,7 @@ public class MarchingSquares {
         }
 
         // Top side of iso cell.
-        switch (cell.getNeighborInfo()) {
+        switch (cell.getNeighbourInfo()) {
             case 4:
             case 5:
             case 6:
@@ -425,7 +412,7 @@ public class MarchingSquares {
         }
 
         // Right side of iso cell.
-        switch (cell.getNeighborInfo()) {
+        switch (cell.getNeighbourInfo()) {
             case 2:
             case 3:
             case 4:
