@@ -2,12 +2,15 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -19,8 +22,9 @@ public class Main {
 
 	/**
 	 * @param args
+	 * @throws IOException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 	
 		Interpolator interpolator = new Interpolator();
 		
@@ -30,49 +34,50 @@ public class Main {
 		 * de points
 		 */
 		ArrayList<Point> listPoints = new ArrayList<Point>();
-		BufferedOutputStream bos = null;
-		try {
-			bos = new BufferedOutputStream(new FileOutputStream(new File("test3.txt")));
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	    byte[] buf = new byte[3*100];
+		
 		for(int u=0; u<100; u++){
 			
 			Random r=new Random();
 			int a=r.nextInt(500);
 			int b=r.nextInt(500);
 			int c=r.nextInt(30+1);
-			
-			/*buf[u]=(byte) a;
-			buf[u+2]=(byte) b;
-			buf[u+3]=(byte) c;
-			try {
-				bos.write(buf);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}		*/
-			
+					
 			Point A = new Point(a, b, null, c);
 			listPoints.add(A);
 		}
 		
+		//Enregistrer le fichier
+	
+		 FileWriter outFile = new FileWriter("StudentData3.txt");
+         BufferedWriter outStream = new BufferedWriter(outFile);
+         for (int k = 0; k < listPoints.size(); k++){
+             outStream.write(String.valueOf(listPoints.get(k).getX()));
+             outStream.write(" "); 
+             outStream.write(String.valueOf(listPoints.get(k).getY()));
+             outStream.write(" ");
+             outStream.write(String.valueOf((listPoints.get(k).getTemp())));
+             outStream.write(" ");
+             
+         }
+         outStream.flush();
+         outStream.close();
+         System.out.println("Data saved.");
+		
+		
 		System.out.println(listPoints);
 		//Lire le fichier
-	    /*Scanner scanner = new Scanner(new FileReader("path_to_file"));
+	    Scanner scanner = new Scanner(new FileReader("StudentData2.txt"));
 	    String str = null;
 	    String mot = null;
 	    int compteur=1;
-	    int x1,x2,y1,y2, nbParameters;
+	    int x1=0,x2=0,y1=0,y2=0, nbParameters;
 	    int bornInfParam1, bornSupParam1;
 	    int bornInfParam2, bornSupParam2;
-	    int a,b,c,d;
-	    
+	    int a=0,b=0,c=0,d=0;
+	    System.out.println(scanner.hasNext());
 	    while (scanner.hasNext()) {
 	        mot = scanner.next();
-	        
+	        System.out.println(mot);
 	        switch(compteur){
 	        case 1:
 	        	x1=Integer.parseInt(mot);
@@ -95,12 +100,14 @@ public class Main {
 	        case 7:
 	        	bornSupParam1=Integer.parseInt(mot);
 	        	break;
+	        default:
+	        	break;
 	       /* case 8:
 	        	bornInfParam2=Integer.parseInt(mot);
 	        	break;
 	        case 9:
 	        	bornSupParam2=Integer.parseInt(mot);
-	        	break;	        		
+	        	break;*/	        		
 	        }
 	        
 	        if(compteur>7){
@@ -123,23 +130,27 @@ public class Main {
 	    			listPoints.add(A);
 	        	}
 	        		break;
-	        	}
+	        	}*/
 	        }
-	        	
-	       
+	        }
 	        compteur++;
 	        }
 	
+	        System.out.println(x1);
+	        System.out.println(x2);
+	        System.out.println(y1);
+	        System.out.println(y2);
+	        
 	    int ncols=Math.abs(x2-x1);
 		int nrows=Math.abs(y2-y1);
 	    interpolator.setNrows(nrows);
-	    interpolator.setNcols(ncols);*/
+	    interpolator.setNcols(ncols);
 		
-		interpolator.setNrows(500);
+		/*interpolator.setNrows(500);
 		interpolator.setNcols(500);
 		int nrows = interpolator.getNrows();
 		System.out.println(nrows);
-		int ncols = interpolator.getNcols();
+		int ncols = interpolator.getNcols();*/
 		
 		//Les points concernés sont noirs
 		for(int k=0; k<listPoints.size();k++){
@@ -228,14 +239,13 @@ public class Main {
 		manager.SystemChoice();
 		String dossierImages = manager.getDossierImages();
 		
-		File file = new File(dossierImages + "test15.png");
+		File file = new File(dossierImages + "test155.png");
 		try {
 			ImageIO.write(img, "png", file);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}	
 		}
-
-}
+		}
+	}
 }
