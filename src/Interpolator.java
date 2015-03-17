@@ -7,7 +7,7 @@ public class Interpolator {
 	private int nrows;
 	private int ncols;
 	private int picsize = nrows*ncols;
-	private Point[] tabPoints = new Point[picsize];
+	private Point[] tabPoints = new Point[ncols*nrows];
 	private double[] tabTemp = new double[picsize];
 	private String name;
 	
@@ -34,6 +34,10 @@ public class Interpolator {
 		return tabPoints;
 	}
 	
+	public void setTable(Point[] tab){
+		tabPoints=tab;
+	}
+	
 	public double[] getTableTemp(){
 		return tabTemp;
 	}
@@ -56,12 +60,14 @@ public class Interpolator {
 	 *******************************/
 	
 	public void initArrays(ArrayList<Point> listPoints){
+		Point[] tab = new Point[ncols*nrows];
+		
 		//Remplissage du tableau      
 		int i,j;
 		for(i=0; i<nrows; i++){
 			for(j=0;j<ncols;j++){
 			Point A = new Point(i,j,null,0);
-			tabPoints[i*nrows+j]=A;
+			tab[i*nrows+j]=A;
 			}
 		}
 		
@@ -69,8 +75,11 @@ public class Interpolator {
 			int x_i = listPoints.get(i).getX();
 			int y_i = listPoints.get(i).getY();
 			
-			tabPoints[x_i*nrows+y_i]=listPoints.get(i);
-		}		
+			tab[x_i*nrows+y_i]=listPoints.get(i);
+		}
+		
+		setTable(tab);
+		
 	}
 	
 	
@@ -82,10 +91,10 @@ public class Interpolator {
 		
 		int i;
 		Point B = new Point(15, 2, Color.red, 0);
-			      
+		
 		initArrays(listPoints);
 		
-		for(i=0; i<picsize; i++){
+		for(i=0; i<ncols*nrows; i++){
 			B.minimumDistancePoint(tabPoints[i], listPoints);
 			Point ClosestPoint=B.getClosestPoint();
 			tabPoints[i].setTemp(ClosestPoint.getTemp());
@@ -106,7 +115,7 @@ public class Interpolator {
 		
 		initArrays(listPoints);
 		
-		for(i=0; i<picsize; i++){
+		for(i=0; i<ncols*nrows; i++){
 			
 			Point A=tabPoints[i];
 			

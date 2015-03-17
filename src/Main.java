@@ -1,16 +1,10 @@
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -25,7 +19,11 @@ public class Main {
 	 * @throws IOException 
 	 */
 	public static void main(String[] args) throws IOException {
-	
+		
+
+		for(int cmt=0;cmt<10;cmt++){
+		
+
 		Interpolator interpolator = new Interpolator();
 		
 		/**
@@ -48,8 +46,17 @@ public class Main {
 		
 		//Enregistrer le fichier
 	
-		 FileWriter outFile = new FileWriter("StudentData3.txt");
+		 FileWriter outFile = new FileWriter("StudentDataTest" + cmt + ".txt");
          BufferedWriter outStream = new BufferedWriter(outFile);
+         
+         outStream.write(String.valueOf(0));outStream.write(" "); 
+         outStream.write(String.valueOf(500));outStream.write(" "); 
+         outStream.write(String.valueOf(0));outStream.write(" "); 
+         outStream.write(String.valueOf(500));outStream.write(" "); 
+         outStream.write(String.valueOf(1));outStream.write(" "); 
+         outStream.write(String.valueOf(0));outStream.write(" "); 
+         outStream.write(String.valueOf(30));outStream.write(" "); 
+         
          for (int k = 0; k < listPoints.size(); k++){
              outStream.write(String.valueOf(listPoints.get(k).getX()));
              outStream.write(" "); 
@@ -61,12 +68,11 @@ public class Main {
          }
          outStream.flush();
          outStream.close();
-         System.out.println("Data saved.");
 		
 		
-		System.out.println(listPoints);
 		//Lire le fichier
-	    Scanner scanner = new Scanner(new FileReader("StudentData2.txt"));
+         
+	    Scanner scanner = new Scanner(new FileReader("StudentDataTest" + cmt + ".txt"));
 	    String str = null;
 	    String mot = null;
 	    int compteur=1;
@@ -74,10 +80,10 @@ public class Main {
 	    int bornInfParam1, bornSupParam1;
 	    int bornInfParam2, bornSupParam2;
 	    int a=0,b=0,c=0,d=0;
-	    System.out.println(scanner.hasNext());
+
 	    while (scanner.hasNext()) {
 	        mot = scanner.next();
-	        System.out.println(mot);
+	        
 	        switch(compteur){
 	        case 1:
 	        	x1=Integer.parseInt(mot);
@@ -109,38 +115,28 @@ public class Main {
 	        	bornSupParam2=Integer.parseInt(mot);
 	        	break;*/	        		
 	        }
-	        
 	        if(compteur>7){
-	        	switch(compteur%4){
-	        	case 0:
+	        	switch(compteur%3){
+	        	case 2:
 	        		a=Integer.parseInt(mot);
 	        		break;
-	        	case 1:
+	        	case 0:
 	        		b=Integer.parseInt(mot);
 	        		break;
-	        	case 2:{
+	        	case 1:{
 	               	c=Integer.parseInt(mot);
 	               	Point A = new Point(a, b, null, c);
 	    			listPoints.add(A);
+	    			System.out.print(A.getX()); System.out.print(" "); System.out.print(A.getY()); System.out.print(" "); System.out.print(A.getTemp()); System.out.println();
 	        	}
 	               	break;
-	        	/*case 3:{
-	        		d=Integer.parseInt(mot);
-	        		Point A = new Point(a, b, null, c);
-	    			listPoints.add(A);
 	        	}
-	        		break;
-	        	}*/
-	        }
 	        }
 	        compteur++;
 	        }
-	
-	        System.out.println(x1);
-	        System.out.println(x2);
-	        System.out.println(y1);
-	        System.out.println(y2);
-	        
+		        
+	    
+	    System.out.println(listPoints);
 	    int ncols=Math.abs(x2-x1);
 		int nrows=Math.abs(y2-y1);
 	    interpolator.setNrows(nrows);
@@ -160,7 +156,7 @@ public class Main {
 		//Choix de l'interpolateur à faire (Vornoi, PlusProche, Marching squares)
 		boolean boucle = false;
 		
-		String choix, choix1;
+		String choix = null, choix1 = null;
 		Scanner scanIn = new Scanner(System.in);
 		
 		while(boucle == false){
@@ -239,7 +235,7 @@ public class Main {
 		manager.SystemChoice();
 		String dossierImages = manager.getDossierImages();
 		
-		File file = new File(dossierImages + "test155.png");
+		File file = new File(dossierImages + "test" + cmt + ".png");
 		try {
 			ImageIO.write(img, "png", file);
 		} catch (IOException e) {
@@ -247,5 +243,6 @@ public class Main {
 			e.printStackTrace();
 		}
 		}
+	}
 	}
 }
