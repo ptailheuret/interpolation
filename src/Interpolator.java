@@ -29,6 +29,15 @@ public class Interpolator {
 		return tabTemp;
 	}
 	
+	public double carre(double x){
+		return x*x;
+	}
+	
+	
+	/*******************************
+	 * Initialisation des tableaux *
+	 *******************************/
+	
 	public void initArrays(ArrayList<Point> listPoints){
 		//Remplissage du tableau      
 		int i,j;
@@ -47,9 +56,14 @@ public class Interpolator {
 		}		
 	}
 	
+	
+	/***************************************
+	 * Interpolation, diagramme de Voronoi *
+	 ***************************************/
+	
 	public void Voronoi(ArrayList<Point> listPoints){
 		
-		int i,compteur = 0;
+		int i;
 		Point B = new Point(15, 2, Color.red, 0);
 			      
 		initArrays(listPoints);
@@ -57,12 +71,14 @@ public class Interpolator {
 		for(i=0; i<picsize; i++){
 			B.minimumDistancePoint(tabPoints[i], listPoints);
 			Point ClosestPoint=B.getClosestPoint();
-			System.out.println(ClosestPoint);
-			System.out.println(compteur);
-			tabPoints[i].setColor(ClosestPoint.getColor());
-			compteur++;
+			tabPoints[i].setTemp(ClosestPoint.getTemp());
 		}	
 	}
+	
+	
+	/*******************************
+	 * Interpolation, cartographie *
+	 *******************************/
 	
 	public void nearestNeighbourSearch(ArrayList<Point> listPoints){
 		
@@ -98,7 +114,10 @@ public class Interpolator {
 		}
 		}
 	
-	public double carre(double x){
-		return x*x;
-	}
+	
+	/*******************
+	 * Marching square *
+	 *******************/
+	
+
 }

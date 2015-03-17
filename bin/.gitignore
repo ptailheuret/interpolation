@@ -1,3 +1,16 @@
 /Interpolator.class
 /Main.class
 /Point.class
+/Algorithm$Result.class
+/Algorithm$Task.class
+/Algorithm.class
+/Cell$Side.class
+/Cell.class
+/Grid.class
+/PathGenerator.class
+/PaxHeader/
+/marchingsquares/
+/IsoCell$side.class
+/IsoCell.class
+/MarchingSquares.class
+/map/

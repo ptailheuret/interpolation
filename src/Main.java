@@ -50,7 +50,7 @@ public class Main {
 			Random r=new Random();
 			int a=r.nextInt(500);
 			int b=r.nextInt(500);
-			int c=-20+r.nextInt(50+20+1);
+			int c=r.nextInt(30+1);
 			
 			Point A = new Point(a, b, null, c);
 			listPoints.add(A);
@@ -61,23 +61,10 @@ public class Main {
 			listPoints.get(k).setColor(Color.black);
 		}
 	
-		/*interpolator.Voronoi(listPoints);
 		
-		int nrows = interpolator.getNrows();
-		int ncols = interpolator.getNcols();
-		
-		BufferedImage img=new BufferedImage(nrows, ncols, BufferedImage.TYPE_INT_RGB);
-		for(int i=0; i<nrows; i++){
-			for(int j=0;j<ncols;j++){
-		  int index=i*nrows+j;
-		  Point[] tab = interpolator.getTable();
-		  int rgb = tab[index].getColor().getRGB();
-		  img.setRGB(i, j, rgb);
-			}
-		}
-	*/
-		
-		interpolator.nearestNeighbourSearch(listPoints);
+		//Choix de l'interpolateur
+		interpolator.Voronoi(listPoints);		
+		//interpolator.nearestNeighbourSearch(listPoints);
 		
 		int nrows = interpolator.getNrows();
 		int ncols = interpolator.getNcols();
@@ -95,7 +82,7 @@ public class Main {
 		}
 		
 		
-	File file = new File("C://Users//Patrick//workspace//test1.png");
+	File file = new File("C://Users//Patrick//workspace//test4.png");
 	try {
 		ImageIO.write(img, "png", file);
 	} catch (IOException e) {
