@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
@@ -17,33 +18,12 @@ public class Main {
 	
 		Interpolator interpolator = new Interpolator();
 		
-		/*
-		Point A = new Point(27, 130, Color.blue);
-		Point B = new Point(460, 45, Color.red);
-		Point C = new Point(54, 200, Color.green);
-		Point D = new Point(110, 86, Color.red);
-		Point E = new Point(235, 56, Color.blue);
-		Point F = new Point(190, 190, Color.red);
-		Point G = new Point(368, 245, Color.green);
-		Point H = new Point(378, 200, Color.blue);
-		Point I = new Point(470, 490, Color.red);
-		
-		Point A = new Point(457, 453, null, 30);
-		Point B = new Point(460, 45, null, 15);
-		Point C = new Point(54, 200, null, 2);
-		Point D = new Point(110, 456, null, 22);
-		Point E = new Point(235, 56, null, 6);
-		Point F = new Point(190, 190, null, 12);
-		Point G = new Point(368, 245, null, 22);
-		Point H = new Point(378, 200, null, -33);
-		Point I = new Point(470, 490, null, 16);
-		
-		listPoints.add(A);listPoints.add(B);listPoints.add(C);listPoints.add(D);
-		listPoints.add(E);listPoints.add(F);listPoints.add(G);listPoints.add(H);
-		listPoints.add(I);*/
+		/**
+		 * Création
+		 * de la liste
+		 * de points
+		 */
 		ArrayList<Point> listPoints = new ArrayList<Point>();
-		
-		
 		
 		for(int u=0; u<100; u++){
 			
@@ -56,15 +36,47 @@ public class Main {
 			listPoints.add(A);
 		}	
 		
-		
+		//Les points concernés sont noirs
 		for(int k=0; k<listPoints.size();k++){
 			listPoints.get(k).setColor(Color.black);
 		}
-	
 		
-		//Choix de l'interpolateur
-		interpolator.Voronoi(listPoints);		
-		//interpolator.nearestNeighbourSearch(listPoints);
+		//Choix de l'interpolateur à faire (Vornoi, PlusProche, Marching squares)
+		boolean boucle = false;	
+		String choix;
+		Scanner scanIn = new Scanner(System.in);
+		
+		while(boucle == false){
+			
+			System.out.println("Choisir le type d'interpolateur : ");
+			System.out.println("V pour les diagrammes de Vornoi");
+			System.out.println("N pour la cartographie type météo/altitude");
+			System.out.println("M pour le Marching Squares");
+	
+			choix = scanIn.nextLine();
+			char carac = choix.charAt(0);
+			
+	       
+			if(carac == 'V'){
+				System.out.println("Diagramme de Voronoi");
+				interpolator.Voronoi(listPoints);
+				boucle = true;				
+				System.out.println(boucle);
+			}
+			else if(carac == 'N'){
+				System.out.println("Cartographie");
+				interpolator.nearestNeighbourSearch(listPoints);
+				boucle = true;
+			}
+			else if(carac == 'M'){
+				System.out.println("Marching Squares");
+				boucle = true;
+			}
+			else
+				System.out.println("Erreur dans la saisie");	
+		}
+				
+		scanIn.close();  
 		
 		int nrows = interpolator.getNrows();
 		int ncols = interpolator.getNcols();
@@ -80,15 +92,19 @@ public class Main {
 		  img.setRGB(i, j, rgb);
 			}
 		}
+	
+		//Selection du dossier des images selon le systeme d'exploitation
+		FilesManager manager = new FilesManager();
+		manager.SystemChoice();
+		String dossierImages = manager.getDossierImages();
 		
-		
-	File file = new File("C://Users//Patrick//workspace//test4.png");
-	try {
-		ImageIO.write(img, "png", file);
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}		
+		File file = new File(dossierImages + "test15.png");
+		try {
+			ImageIO.write(img, "png", file);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
 
 }
 }
