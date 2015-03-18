@@ -13,6 +13,7 @@ public class Point {
 	private Point ClosestPoint = null;
 	private ArrayList<Point> listNearestPoints = new ArrayList<Point>();
 	
+	
 	public Point(int x, int y, Color color, int temp) {
 		this.x=x;
 		this.y=y;
@@ -78,12 +79,28 @@ public class Point {
 		listNearestPoints=list;
 	}
 
+	/**
+	 * Distance euclidienne standard, peut etre redefini si necessaire
+	 * @param A
+	 * @param B
+	 * @return
+	 */
+	
 	public double distance(Point A, Point B){
 		int x_A=A.getX(); int y_A=A.getY();
 		int x_B=B.getX(); int y_B=B.getY();		
 		
 		return Math.hypot(x_A - x_B, y_A - y_B);
 	}
+	
+	/**
+	 * Algorithme naif de recherche de la distance minimum d'un point à une liste
+	 * de points. Optimisation possible mais l'effort de programmation n'est sans
+	 * doute pas rentable
+	 * @param A
+	 * @param list
+	 * @return
+	 */
 	
 	public Point minimumDistancePoint(Point A, ArrayList<Point> list){
 		int i = 0;
@@ -103,6 +120,17 @@ public class Point {
 		return ClosestPoint;
 	}
 	
+	/**
+	 * Algorithme naif donnant une liste de "points les plus proches" suivant deux parametres
+	 * Un point est dit proche d'un point A si il est suffisamment proche (au sens de la distance
+	 * defini plus haut) ET si il n'y a pas deja nBMax points deja defini comme "proche".
+	 * 
+	 * @param distanceMin
+	 * @param nBMax
+	 * @param A
+	 * @param listPoints
+	 * @return
+	 */
 	public ArrayList<Point> NearestPoints(double distanceMin,int nBMax, Point A, ArrayList<Point> listPoints){
 		double distance;
 		for(int i=0; i<listPoints.size(); i++){
@@ -114,6 +142,12 @@ public class Point {
 				
 		return listNearestPoints;
 	}
+	
+	/**
+	 * Ici on associe des plages de temperatures a des couleurs specifiques
+	 * Il est possible de faire de meme pour l'altitude
+	 * 
+	 */
 	
 	public void tempColor(){
 		if(temp<=5)

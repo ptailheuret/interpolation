@@ -12,6 +12,34 @@ import java.util.Scanner;
 import javax.imageio.ImageIO;
 
 
+/**
+ * Le principe du programme est de lire un fichier (ici crÈe en direct) .txt dont les "mots" sont pour l'instant les suivantes:
+ * 
+ * mot_1: Valeur minimum de l'intervalle horizontal
+ * mot_2: Valeur maximum de l'intervalle horizontal
+ * mot_3: Valeur minimum de l'intervalle vertical
+ * mot_4: Valeur maximum de l'intervalle vertical
+ * mot_5: Nombre de parametres (ici 1)
+ * mot_6: Valeur minimum de l'intervalle du paramËtre
+ * mot_7: Valeur maximum de l'intervalle du paramËtre
+ * 
+ * 
+ * Pour n>7: Soit P un point tq P(i,j,null,temp)
+ * 	Si n%3=2: Valeur de i
+ * 	Si n%3=0: Valeur de j
+ * 	Si n%3=1: Valeur de temp
+ * 
+ * Les points de cette liste sont noirs pour Ítre vu sur l'image finale.
+ * 
+ * L'etape d'apres est le choix pour l'utilisateur du programme qu'il desire executer
+ * 
+ * On remplit alors une image via les donnees recuperees lors de l'execution de l'interpolateur choisis
+ * 
+ * 
+ * @author Tailheuret
+ *
+ */
+
 public class Main {
 
 	/**
@@ -21,23 +49,20 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		
 
-		for(int cmt=0;cmt<10;cmt++){
+		int cmt=1;
 		
 
 		Interpolator interpolator = new Interpolator();
 		
-		/**
-		 * Cr√©ation
-		 * de la liste
-		 * de points
-		 */
+		//Creation de la liste de points
+		
 		ArrayList<Point> listPoints = new ArrayList<Point>();
 		
-		for(int u=0; u<100; u++){
+		for(int u=0; u<200; u++){
 			
 			Random r=new Random();
-			int a=r.nextInt(500);
-			int b=r.nextInt(500);
+			int a=r.nextInt(1000);
+			int b=r.nextInt(1000);
 			int c=r.nextInt(30+1);
 					
 			Point A = new Point(a, b, null, c);
@@ -50,9 +75,9 @@ public class Main {
          BufferedWriter outStream = new BufferedWriter(outFile);
          
          outStream.write(String.valueOf(0));outStream.write(" "); 
-         outStream.write(String.valueOf(500));outStream.write(" "); 
+         outStream.write(String.valueOf(1000));outStream.write(" "); 
          outStream.write(String.valueOf(0));outStream.write(" "); 
-         outStream.write(String.valueOf(500));outStream.write(" "); 
+         outStream.write(String.valueOf(1000));outStream.write(" "); 
          outStream.write(String.valueOf(1));outStream.write(" "); 
          outStream.write(String.valueOf(0));outStream.write(" "); 
          outStream.write(String.valueOf(30));outStream.write(" "); 
@@ -107,14 +132,9 @@ public class Main {
 	        	bornSupParam1=Integer.parseInt(mot);
 	        	break;
 	        default:
-	        	break;
-	       /* case 8:
-	        	bornInfParam2=Integer.parseInt(mot);
-	        	break;
-	        case 9:
-	        	bornSupParam2=Integer.parseInt(mot);
-	        	break;*/	        		
+	        	break;	        		
 	        }
+	        
 	        if(compteur>7){
 	        	switch(compteur%3){
 	        	case 2:
@@ -135,25 +155,20 @@ public class Main {
 	        compteur++;
 	        }
 		        
-	    
-	    System.out.println(listPoints);
+	    //Definition de ncols et nrows
+	 
 	    int ncols=Math.abs(x2-x1);
 		int nrows=Math.abs(y2-y1);
 	    interpolator.setNrows(nrows);
 	    interpolator.setNcols(ncols);
 		
-		/*interpolator.setNrows(500);
-		interpolator.setNcols(500);
-		int nrows = interpolator.getNrows();
-		System.out.println(nrows);
-		int ncols = interpolator.getNcols();*/
-		
-		//Les points concern√©s sont noirs
+		//Les points de la liste lu dans le fichier sont noirs
+	    
 		for(int k=0; k<listPoints.size();k++){
 			listPoints.get(k).setColor(Color.black);
 		}
 		
-		//Choix de l'interpolateur √† faire (Vornoi, PlusProche, Marching squares)
+		//Choix de l'interpolateur a† faire (Vornoi, PlusProche, Marching squares)
 		boolean boucle = false;
 		
 		String choix = null, choix1 = null;
@@ -216,9 +231,14 @@ public class Main {
 				
 		scanIn.close();  
 		String name = interpolator.getName();
+		
+		//Verifie que l'algorithme selectionne est bien dans la liste
+		
 		if(name=="Voronoi" || name=="Cartographie" || name=="Marching Squares"){
 		Point[] tabPoints = interpolator.getTable();
-		 
+		
+		//Remplit l'image avec le resultat de l'application de l'algorithme
+		
 		BufferedImage img=new BufferedImage(nrows, ncols, BufferedImage.TYPE_INT_RGB);
 		for(int i=0; i<nrows; i++){
 			for(int j=0;j<ncols;j++){
@@ -231,6 +251,7 @@ public class Main {
 		}
 	
 		//Selection du dossier des images selon le systeme d'exploitation
+		
 		FilesManager manager = new FilesManager();
 		manager.SystemChoice();
 		String dossierImages = manager.getDossierImages();
@@ -243,6 +264,5 @@ public class Main {
 			e.printStackTrace();
 		}
 		}
-	}
 	}
 }

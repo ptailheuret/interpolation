@@ -1,3 +1,12 @@
+/**
+ * Cette classe n'a qu'une seule utilite
+ * permettre d'enregistrer et charger les fichiers facilement
+ * peut importe le systeme d'exploitation utilise
+ * 
+ * 
+ * @author Patrick
+ *
+ */
 
 public class FilesManager {
 	
@@ -29,7 +38,6 @@ public class FilesManager {
 		return (OS.indexOf("sunos") >= 0); 
 	}
 
-	
 	public void SystemChoice(){
 		
 		

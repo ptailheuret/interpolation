@@ -55,10 +55,13 @@ public class Interpolator {
 	}
 	
 	
-	/*******************************
-	 * Initialisation des tableaux *
-	 *******************************/
-	
+	/**
+	 * Initialisation des tableaux
+	 * La premiere boucle remplit le tableaux de points de couleurs null et de temperature nulle
+	 * La seconde ajoute les points lus dans le fichier (donc ecrase listPoints.size() des points
+	 * precedemment definis
+	 * @param listPoints
+	 */
 	public void initArrays(ArrayList<Point> listPoints){
 		Point[] tab = new Point[ncols*nrows];
 		
@@ -82,10 +85,11 @@ public class Interpolator {
 		
 	}
 	
-	
-	/***************************************
-	 * Interpolation, diagramme de Voronoi *
-	 ***************************************/
+	/**
+	 * Implementation naive de l'algorithme n°1
+	 * Il permet la creation de diagrammes de Voronoi
+	 * @param listPoints
+	 */
 	
 	public void Voronoi(ArrayList<Point> listPoints){
 		
@@ -100,11 +104,13 @@ public class Interpolator {
 			tabPoints[i].setTemp(ClosestPoint.getTemp());
 		}	
 	}
-	
-	
-	/*******************************
-	 * Interpolation, cartographie *
-	 *******************************/
+
+	/**
+	 * Implementation de l'algorithme n°2
+	 * Il simule ce qui est effectue lors d'une cartographie (altitude)
+	 * ou au niveau de la meteorologie (temperatures)
+	 * @param listPoints
+	 */
 	
 	public void nearestNeighbourSearch(ArrayList<Point> listPoints){
 		
