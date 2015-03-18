@@ -4,7 +4,7 @@
  * peut importe le systeme d'exploitation utilise
  * 
  * 
- * @author Patrick
+ * @author Tailheuret
  *
  */
 
