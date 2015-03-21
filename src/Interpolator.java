@@ -116,8 +116,8 @@ public class Interpolator {
 		
 		int i,j;
 		int nBMax = 50;
-		double distanceMin = 200;
-		Point B = new Point(15, 243, Color.red,13);
+		double distanceMin = 200*200;
+		Point B = new Point(15, 2, Color.red, 0);
 		
 		initArrays(listPoints);
 		
@@ -134,8 +134,8 @@ public class Interpolator {
 				
 				for(j=0; j<listNearestPoints.size(); j++){
 					
-					w = w + (1/carre(B.distance(tabPoints[i], listNearestPoints.get(j))));
-					n = n + (listNearestPoints.get(j).getTemp()/carre(B.distance(tabPoints[i], listNearestPoints.get(j))));
+					w = w + (1/B.distanceToCompare(tabPoints[i], listNearestPoints.get(j)));
+					n = n + (listNearestPoints.get(j).getTemp()/(B.distanceToCompare(tabPoints[i], listNearestPoints.get(j))));
 				}
 	
 				tabPoints[i].setTemp((int) (n/w));

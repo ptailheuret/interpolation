@@ -52,7 +52,7 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		
 
-		int cmt=1;
+		int cmt=5;
 		
 
 		Interpolator interpolator = new Interpolator();
@@ -60,12 +60,12 @@ public class Main {
 		//Creation de la liste de points
 		int width = 500;
 		int height = 500;
-		int tempMin = -5;
-		int tempMax = 40;
+		int tempMin = -20;
+		int tempMax = 60;
 		
 		ArrayList<Point> listPoints = new ArrayList<Point>();
-		
-		for(int u=0; u<100; u++){
+	
+		for(int u=0; u<200; u++){
 			
 			Random r=new Random();
 			int a = r.nextInt(width+1);
@@ -100,12 +100,13 @@ public class Main {
          }
          outStream.flush();
          outStream.close();
-		
+         
+         listPoints = new ArrayList<Point>();
+
 		
 		//Lire le fichier
          
 	    Scanner scanner = new Scanner(new FileReader("StudentDataTest" + cmt + ".txt"));
-	    String str = null;
 	    String mot = null;
 	    int compteur=1;
 	    int x1=0,x2=0,y1=0,y2=0, nbParameters;
@@ -161,6 +162,8 @@ public class Main {
 	        }
 	        compteur++;
 	        }
+	    
+	    scanner.close();
 		        
 	    //Definition de ncols et nrows
 	 
@@ -274,7 +277,7 @@ public class Main {
 		manager.SystemChoice();
 		String dossierImages = manager.getDossierImages();
 		
-		File file = new File(dossierImages + "test" + cmt + ".png");
+		File file = new File(dossierImages + "test" + interpolator.getName() + cmt + ".png");
 		try {
 			ImageIO.write(img, "png", file);
 		} catch (IOException e) {
