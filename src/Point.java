@@ -94,9 +94,28 @@ public class Point {
 	}
 	
 	/**
+	 * Carré de la distance normale, quand il s'agit de comparer deux distances
+	 * Il est inutile de calculer la racine carrée
+	 * @param A
+	 * @param B
+	 * @return
+	 */
+	
+	public double distanceToCompare(Point A, Point B){
+		int x_A=A.getX(); int y_A=A.getY();
+		int x_B=B.getX(); int y_B=B.getY();		
+		
+		return ((x_A - x_B)*(x_A - x_B)+(y_A - y_B)*(y_A - y_B));
+	}
+	
+	/**
 	 * Algorithme naif de recherche de la distance minimum d'un point à une liste
 	 * de points. Optimisation possible mais l'effort de programmation n'est sans
 	 * doute pas rentable
+	 * 
+	 * 15eme commit: On utilise distanceToCompare
+	 * Après test, on passe de 35sec d'exécution pour 100 points en 500x500 à une
+	 * execution instantannée
 	 * @param A
 	 * @param list
 	 * @return
@@ -109,7 +128,7 @@ public class Point {
 		for(i=0; i<list.size(); i++){
 			if(A==null);
 			else{
-			d=distance(A,list.get(i));
+			d=distanceToCompare(A,list.get(i));
 			if(d<minimum || minimum==0){
 				minimum=d;
 				ClosestPoint=list.get(i);
@@ -125,6 +144,10 @@ public class Point {
 	 * Un point est dit proche d'un point A si il est suffisamment proche (au sens de la distance
 	 * defini plus haut) ET si il n'y a pas deja nBMax points deja defini comme "proche".
 	 * 
+	 * 15eme commit: On utilise distanceToCompare
+	 * Après test, on passe de 35sec d'exécution pour 100 points en 500x500 à une
+	 * execution instantannée
+	 * 
 	 * @param distanceMin
 	 * @param nBMax
 	 * @param A
@@ -134,7 +157,7 @@ public class Point {
 	public ArrayList<Point> NearestPoints(double distanceMin,int nBMax, Point A, ArrayList<Point> listPoints){
 		double distance;
 		for(int i=0; i<listPoints.size(); i++){
-			distance = distance(A,listPoints.get(i));
+			distance = distanceToCompare(A,listPoints.get(i));
 			if(distance<distanceMin 
 					&& listNearestPoints.size()<nBMax)
 				listNearestPoints.add(listPoints.get(i));

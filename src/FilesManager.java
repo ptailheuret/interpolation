@@ -45,20 +45,14 @@ public class FilesManager {
 		
 		if(isWindows()){
 		dossierImages = System.getProperty("user.home") + "//workspace//data//";
-		System.out.println("C'est windows");
-		System.out.println();
 		}
 		
 		else if(isMac()){
 		dossierImages = System.getProperty("user.home") + "/workspace/data/";
-		System.out.println("C'est Mac");
-		System.out.println();
 		}
 		
 		else if(isUnix()){
 		dossierImages = System.getProperty("user.home") + "/workspace/data/";
-		System.out.println("C'est linux");
-		System.out.println();
 		}
 		
 		setDossierImages(dossierImages);
