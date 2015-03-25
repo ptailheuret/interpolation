@@ -9,6 +9,10 @@ public class Test {
 	 ArrayList<Point> getListPoint(){
 		return listPoints;
 	 }
+	 
+	 void setListPoint(ArrayList<Point> list){
+			listPoints = list;
+		 }
 	
 	/**
 	 * @param args
@@ -34,6 +38,7 @@ public class Test {
 			listPoints.add(A);
 		}
 		
+				@SuppressWarnings("unused")
 				Window fenetre = new Window();
 	}
 
