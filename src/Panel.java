@@ -1,3 +1,4 @@
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -11,10 +12,10 @@ import javax.swing.JPanel;
 public class Panel extends JPanel{
 
 	public Panel(){
+		super();
 	}
 	
-	public void backGroundPicture(){
-		JLabel label = new JLabel();
+	public void backGroundPicture(JLabel label){
 		
 		BufferedImage inputfile = null;
 		try {
@@ -30,8 +31,7 @@ public class Panel extends JPanel{
 		this.add(label);
 	}
 	
-	public void newBackGroundPicture(){
-		JLabel label = new JLabel();
+	public void newBackGroundPicture(JLabel label){
 		
 		BufferedImage inputfile = null;
 		try {
@@ -48,13 +48,27 @@ public class Panel extends JPanel{
 		
 	}
 	
-	public void newPicture(BufferedImage inputfile){
-		JLabel label = new JLabel();
+	public void newPicture(JLabel label, BufferedImage inputfile){
 		
 		ImageIcon image = new ImageIcon(inputfile);
 		label.setIcon(image);
 		label.repaint();
 		this.add(label);
 	}
+	
+	public void clearLabel(){
+		this.removeAll();
+		this.revalidate();
+	}
+	
+	public void paintComponent(String string){
+		   try {
+		      BufferedImage img = ImageIO.read(new File(string));
+		      Graphics g = img.createGraphics();
+		      g.drawImage(img, 0, 0, this);
+		    } catch (IOException e) {
+		      e.printStackTrace();
+		    }                
+		  }  
 
 }

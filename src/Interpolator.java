@@ -86,7 +86,7 @@ public class Interpolator {
 	}
 	
 	/**
-	 * Implementation naive de l'algorithme n°1
+	 * Implementation naive de l'algorithme nï¿½1
 	 * Il permet la creation de diagrammes de Voronoi
 	 * @param listPoints
 	 */
@@ -94,6 +94,7 @@ public class Interpolator {
 	public void Voronoi(ArrayList<Point> listPoints){
 		
 		int i;
+		tabPoints = new Point[ncols*nrows];
 		Point B = new Point(15, 2, Color.red, 0);
 		
 		initArrays(listPoints);
@@ -106,7 +107,7 @@ public class Interpolator {
 	}
 
 	/**
-	 * Implementation de l'algorithme n°2
+	 * Implementation de l'algorithme nï¿½2
 	 * Il simule ce qui est effectue lors d'une cartographie (altitude)
 	 * ou au niveau de la meteorologie (temperatures)
 	 * @param listPoints
@@ -117,6 +118,7 @@ public class Interpolator {
 		int i,j;
 		int nBMax = 50;
 		double distanceMin = 200*200;
+		tabPoints = new Point[ncols*nrows];
 		Point B = new Point(15, 2, Color.red, 0);
 		
 		initArrays(listPoints);
@@ -150,6 +152,7 @@ public class Interpolator {
 	/*******************
 	 * Marching square *
 	 *******************/
+	
 	
 
 }
